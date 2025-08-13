@@ -1,18 +1,19 @@
-public class SeriesModel {
+public  class SeriesModel {
+    //decleration of varibales for the program
     public int seriesId;
     public String seriesName;
     public int seriesAgeRestriction;
     public int NumberOfEpisodes;
-    public String streamingService;
 
-    public SeriesModel(int seriesId, String seriesName, int seriesAgeRestriction, int NumberOfEpisodes, String streamingService) {
+//here we are setting constructors
+    public SeriesModel(int seriesId, String seriesName, int seriesAgeRestriction, int NumberOfEpisodes) {
         this.seriesId = seriesId;
         this.seriesName = seriesName;
         this.seriesAgeRestriction = seriesAgeRestriction;
         this.NumberOfEpisodes = NumberOfEpisodes;
-        this.streamingService = streamingService;
-    }
 
+    }
+//getters and setters that will be used in te program to set and update data through out
     public int getSeriesId() {
         return seriesId;
     }
@@ -28,11 +29,6 @@ public class SeriesModel {
     public int geNumberOfEpisodes() {
         return NumberOfEpisodes;
     }
-
-    public String getStreamingService() {
-        return streamingService;
-    }
-
 
     public void setSeriesId(int seriesId) {
         this.seriesId = seriesId;
@@ -50,15 +46,12 @@ public class SeriesModel {
         this.seriesAgeRestriction = seriesAgeRestriction;
     }
 
-    public void setStreamingService(String streamingService) {
-        this.streamingService = streamingService;
-    }
-
+//method responsible for displaying report
+    //the method is called in the child clas
     public String SeriesReport() {
-        return "SERIES ID: " + seriesId +
-                "\nSERIES NAME: " + seriesName +
-                "\nSERIES AGE RESTRICTION: " + seriesAgeRestriction +
-                "\nNUMBER OF EPISODES: " + NumberOfEpisodes +
-                "\nSTREAMING SERVICE: " + streamingService + "\n";
+        return "SERIES ID: " + seriesId +"\n"+
+                "\nSERIES NAME: " + seriesName +"\n"+
+                "\nSERIES AGE RESTRICTION: " + seriesAgeRestriction +"\n"+
+                "\nNUMBER OF EPISODES: " + NumberOfEpisodes +"\n";
 
     }}

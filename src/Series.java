@@ -1,50 +1,54 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Series extends SeriesModel{
-    public Series(int seriesId, String seriesName, int seriesAgeRestriction, int NumberOfEpisodes, String streamingService) {
-        super(seriesId, seriesName, seriesAgeRestriction, NumberOfEpisodes, streamingService);
+public class Series extends SeriesModel {
+
+    Scanner scanner = new Scanner(System.in);
+    //decleration of arraylist
+    ArrayList<SeriesModel> seriesList = new ArrayList<>();
+//calling of constructors from the super class
+    public Series(int seriesId, String seriesName, int seriesAgeRestriction, int NumberOfEpisodes) {
+        super(seriesId, seriesName, seriesAgeRestriction, NumberOfEpisodes);
     }
-    Scanner scanner= new Scanner(System.in);
-    public static ArrayList<Series> seriesList = new ArrayList<>();
 
-    public String captureSeries(){
-        System.out.println("-------------------------------------");
-        System.out.println("CAPTURE A NEW SERIES");
-        System.out.println("-------------------------------------");
+    public void captureANewSeries() {
+        //this is the body that takes in the users details
+        SeriesModel seriesModel = new SeriesModel(seriesId, seriesName, seriesAgeRestriction, NumberOfEpisodes);
 
-        System.out.print("Enter the series id: ");
+        System.out.println("Capture a new series" +
+                "please follow the next commands:");
+//everytime the user enters the details the code sets it with its corresponding variable
+        System.out.println("Enter the series id:");
         seriesId = scanner.nextInt();
+        seriesModel.setSeriesId(seriesId);
 
+        System.out.println("Enter the series name:");
+        seriesName = scanner.next();
+        seriesModel.setSeriesName(seriesName);
 
-        System.out.print("Enter the series name: ");
-        seriesName = scanner.nextLine();
-        scanner.nextLine();
-
-        System.out.print("Enter the series age restriction: ");
+        System.out.println("Enter the series age restrictions:");
         seriesAgeRestriction = scanner.nextInt();
-        if (seriesAgeRestriction < 2 || seriesAgeRestriction > 18) {
-            System.out.println("Age meets the restriction");
-        } else {
-            System.out.println("Invalid input. Please enter a valid number for the age restriction.");
-            scanner.nextLine();
+        seriesModel.setSeriesAgeRestriction(seriesAgeRestriction);
+        while (seriesAgeRestriction < 2 || seriesAgeRestriction > 18) {
+            System.out.println("You have entered a incorrect series age !!!" +
+                    "Please re-enter the series age");
+            seriesAgeRestriction = scanner.nextInt();
+            System.out.print("Enter the series age restrictions:");
+            seriesAgeRestriction = scanner.nextInt();
         }
-
-        System.out.print("Enter the number of episodes: ");
+        System.out.println("Enter the number of episodes for " + seriesModel.getSeriesName() + ":");
         NumberOfEpisodes = scanner.nextInt();
-        scanner.nextLine();
+        seriesModel.setNumberOfEpisodes(NumberOfEpisodes);
 
-        System.out.print("Enter the streaming service: ");
-        streamingService = scanner.nextLine();
-
-        Series newSeries = new Series(seriesId, seriesName, seriesAgeRestriction, NumberOfEpisodes, streamingService);
-        seriesList.add(newSeries);
-        System.out.println("Series processed successfully!!!");
-        return "";
+//here the code is storing all the data recived into the array list using the id as a primary key
+        seriesList.add(seriesModel);
+        System.out.print("Series successfully captured !!!");
     }
 
-    public void SearchSeries(){
 
+    public void searchSeries() {
+        //this body of code runs throught the array comparing the id the user gave to the ids it has in the array
+        //if it finds an id that matchs it will pull out the details under the specfic id
         SeriesModel i = null;
         System.out.print("Enter the series id to search: ");
         if (scanner.hasNextInt()) {
@@ -54,19 +58,22 @@ public class Series extends SeriesModel{
             System.out.println("Invalid input. Please enter a valid number for the series ID.");
             scanner.nextLine();
         }
+        //here it is now searching the arraylist
         for (SeriesModel series : seriesList) {
             if (series.getSeriesId() == seriesId) {
                 i = series;
             }
         }
+        //if it finds the match it should pull out the details under the specfic id list
         if (i != null) {
             System.out.println(i.SeriesReport());
         } else {
             System.out.println("Series with Series ID: " + seriesId + " was not found!");
         }
+
     }
 
-    public String UpdateSeries(){
+    public void updateSeries() {
         // Decleration of new variables for the updating details
         int seriesId =0 ;
         SeriesModel seriesToUpdate = null;
@@ -81,6 +88,8 @@ public class Series extends SeriesModel{
         } else {
             System.out.println("Invalid input. Please enter a valid number for the series ID.");
         }
+        scanner.nextLine();
+
         //This body of code loops through the array list to see if the ID given matchs any of the ids in the arraylist
         for (SeriesModel series : seriesList) {
             if (series.getSeriesId() == seriesId) {
@@ -105,7 +114,8 @@ public class Series extends SeriesModel{
             } else {
                 System.out.println("Invalid input. Update failed.");
             }
-            System.out.print("Enter the new number of episodes: ");
+
+            System.out.print("Enter the new number of episodes (" + seriesToUpdate.geNumberOfEpisodes() + "): ");
             if (scanner.hasNextInt()) {
                 newNumberOfEpisodes = scanner.nextInt();
                 seriesToUpdate.setNumberOfEpisodes(newNumberOfEpisodes);
@@ -116,10 +126,9 @@ public class Series extends SeriesModel{
         } else {
             System.out.println("Series with Series ID: " + seriesId + " was not found!");
         }
-        return "";
     }
 
-    public String DeleteSeries(){
+    public void deleteSeries() {
         //decleration of the variables that will be used in this method only
         SeriesModel seriesToDelete = null;
         String confirmation;
@@ -155,28 +164,22 @@ public class Series extends SeriesModel{
         } else {
             System.out.println("Series with Series ID: " + seriesId + " was not found!");
         }
-        return "";
+
     }
 
+    public void seriesReport() {
+        //this code is responsible for the displaying of all the details in the arraylist
+        for (int i = 0; i < seriesList.size(); i++) {
+            SeriesModel seriesModel = seriesList.get(i);
 
-    public void printSeriesReport() {
-        //this body is responsible for printing the all the details that are stored in the array list in its respective order
-        System.out.println("-------------------------------------");
-        System.out.println("SERIES REPORT - 2025");
-        System.out.println("-------------------------------------");
-        if (seriesList.isEmpty()) {
-            System.out.println("No series data available to display.");
-        } else {
-            for (SeriesModel series : seriesList) {
-                System.out.println("-------------------------------------");
-                System.out.println(series.SeriesReport());
-            }
+            System.out.print("Series ID:\n " +seriesModel.getSeriesId());
+            System.out.println("Series name:\n"+ seriesModel.getSeriesName());
+            System.out.println("Series age:\n"+seriesModel.getSeriesAgeRestriction());
+            System.out.println("Number of episodes:\n"+seriesModel.geNumberOfEpisodes());
         }
     }
-
-    public void exitApplication() {
-        //when the user selects the method that activates this code which closes the program
-        System.out.println("Exiting the application. Goodbye!");
+    public void exitApp(){
+        System.out.println("Thank you for using the application");
         scanner.close();
     }
 }
