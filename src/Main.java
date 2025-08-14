@@ -8,7 +8,7 @@ public class Main {
         int seriesAgeRestriction = 0;
         int NumberOfEpisodes = 0;
 
-        //calling the method as an obeject to be used in the main class
+        //calling the method as an object to be used in the main class
         Series series = new Series( seriesId, seriesName, seriesAgeRestriction, NumberOfEpisodes);
 
         Scanner scanner = new Scanner(System.in);

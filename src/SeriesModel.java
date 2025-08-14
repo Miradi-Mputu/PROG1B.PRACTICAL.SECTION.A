@@ -12,7 +12,7 @@ public  class SeriesModel {
         this.seriesAgeRestriction = seriesAgeRestriction;
         this.NumberOfEpisodes = NumberOfEpisodes;
     }
-//getters and setters that will be used in te program to set and update data through out
+//getters and setters that will be used in te program to set and update data throughout
     public int getSeriesId() {
         return seriesId;
     }

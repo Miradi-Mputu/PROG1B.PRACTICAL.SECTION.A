@@ -5,6 +5,7 @@ public class Series extends SeriesModel {
     Scanner scanner = new Scanner(System.in);
     //decleration of arraylist
     ArrayList<SeriesModel> seriesList = new ArrayList<>();
+
 //calling of constructors from the super class
     public Series(int seriesId, String seriesName, int seriesAgeRestriction, int NumberOfEpisodes) {
         super(seriesId, seriesName, seriesAgeRestriction, NumberOfEpisodes);
