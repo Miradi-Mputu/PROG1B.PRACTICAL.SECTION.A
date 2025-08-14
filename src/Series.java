@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
 public class Series extends SeriesModel {
 
     Scanner scanner = new Scanner(System.in);
